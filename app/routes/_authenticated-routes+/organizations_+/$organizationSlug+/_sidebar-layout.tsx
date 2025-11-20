@@ -4,6 +4,7 @@ import { promiseHash } from "remix-utils/promise";
 
 import type { Route } from "./+types/_sidebar-layout";
 import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
+import { PostHogIdentifier } from "~/features/user-authentication/posthog-identifier";
 import { allLookupKeys } from "~/features/billing/billing-constants";
 import { getCreateSubscriptionModalProps } from "~/features/billing/billing-helpers.server";
 import { retrieveProductsFromDatabaseByPriceLookupKeys } from "~/features/billing/stripe-product-model.server";
@@ -70,6 +71,11 @@ export async function loader({ request, params, context }: Route.LoaderArgs) {
   return data(
     {
       defaultSidebarOpen,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      },
       ...mapOnboardingUserToOrganizationLayoutProps({
         organizationSlug: params.organizationSlug,
         user,
@@ -102,6 +108,7 @@ export default function OrganizationLayoutRoute({
     navUserProps,
     notificationButtonProps,
     organizationSwitcherProps,
+    user,
   } = loaderData;
   const breadcrumbs = findBreadcrumbs(
     matches as UIMatch<{ breadcrump?: { title: string; to: string } }>[],
@@ -109,6 +116,7 @@ export default function OrganizationLayoutRoute({
 
   return (
     <SidebarProvider defaultOpen={defaultSidebarOpen}>
+      <PostHogIdentifier userId={user.id} email={user.email} name={user.name} />
       <AppSidebar
         billingSidebarCardProps={
           billingSidebarCardProps && {

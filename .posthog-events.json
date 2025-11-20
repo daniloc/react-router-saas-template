@@ -1,0 +1,77 @@
+[
+  {
+    "event": "user_registered",
+    "description": "User completed registration with email or Google",
+    "file": "app/features/user-authentication/registration/register-action.server.ts"
+  },
+  {
+    "event": "user_logged_in",
+    "description": "User successfully logged in with email or Google",
+    "file": "app/features/user-authentication/login/login-action.server.ts"
+  },
+  {
+    "event": "organization_created",
+    "description": "User created a new organization",
+    "file": "app/features/organizations/create-organization/create-organization-action.server.ts"
+  },
+  {
+    "event": "onboarding_completed",
+    "description": "User completed organization onboarding form",
+    "file": "app/features/onboarding/organization/onboarding-organization-action.server.ts"
+  },
+  {
+    "event": "team_member_invited",
+    "description": "User invited a team member via email",
+    "file": "app/features/organizations/settings/team-members/team-members-action.server.ts"
+  },
+  {
+    "event": "invite_link_accepted",
+    "description": "User accepted an organization invite via link",
+    "file": "app/features/organizations/accept-invite-link/accept-invite-link-action.server.ts"
+  },
+  {
+    "event": "email_invite_accepted",
+    "description": "User accepted an organization invite via email",
+    "file": "app/features/organizations/accept-email-invite/accept-email-invite-action.server.ts"
+  },
+  {
+    "event": "subscription_checkout_started",
+    "description": "User started checkout process for a subscription",
+    "file": "app/features/billing/billing-action.server.ts"
+  },
+  {
+    "event": "subscription_plan_switched",
+    "description": "User initiated a subscription plan switch",
+    "file": "app/features/billing/billing-action.server.ts"
+  },
+  {
+    "event": "subscription_cancelled",
+    "description": "User cancelled their subscription",
+    "file": "app/features/billing/billing-action.server.ts"
+  },
+  {
+    "event": "subscription_resumed",
+    "description": "User resumed a cancelled subscription",
+    "file": "app/features/billing/billing-action.server.ts"
+  },
+  {
+    "event": "pricing_page_viewed",
+    "description": "User viewed the pricing page - top of conversion funnel",
+    "file": "app/routes/pricing.tsx"
+  },
+  {
+    "event": "contact_sales_submitted",
+    "description": "User submitted enterprise sales contact form",
+    "file": "app/features/billing/contact-sales/contact-sales-action.server.ts"
+  },
+  {
+    "event": "organization_updated",
+    "description": "User updated organization settings",
+    "file": "app/features/organizations/settings/general/general-organization-settings-action.server.ts"
+  },
+  {
+    "event": "error_occurred",
+    "description": "Application error occurred",
+    "file": "app/components/general-error-boundary.tsx"
+  }
+]

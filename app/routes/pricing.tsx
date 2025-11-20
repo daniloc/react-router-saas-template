@@ -1,5 +1,6 @@
 import { CheckIcon } from "lucide-react";
-import { useState } from "react";
+import { usePostHog } from "posthog-js/react";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { href, Link } from "react-router";
 
@@ -39,6 +40,14 @@ export default function PricingRoute() {
   const { t } = useTranslation("billing", { keyPrefix: "pricing" });
   const { t: tPage } = useTranslation("billing", { keyPrefix: "pricingPage" });
   const [billingPeriod, setBillingPeriod] = useState("annual");
+  const posthog = usePostHog();
+
+  // Track pricing page view
+  useEffect(() => {
+    posthog?.capture("pricing_page_viewed", {
+      initial_billing_period: billingPeriod,
+    });
+  }, [posthog]); // Only run once on mount
 
   const getFeatures = (key: string): string[] =>
     t(`plans.${key}.features`, "", { returnObjects: true }) as string[];
