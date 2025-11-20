@@ -1,3 +1,4 @@
+import { usePostHog } from "posthog-js/react";
 import type { ReactElement } from "react";
 import type { ErrorResponse } from "react-router";
 import { isRouteErrorResponse, useParams, useRouteError } from "react-router";
@@ -53,9 +54,21 @@ export function GeneralErrorBoundary({
 }) {
   const error = useRouteError();
   const params = useParams();
+  const posthog = usePostHog();
 
   if (typeof document !== "undefined") {
     console.error("client error in general error boundary", error);
+
+    // Capture error in PostHog (skip 404s as they're expected)
+    if (isRouteErrorResponse(error) && error.status !== 404) {
+      posthog?.captureException(error, {
+        $exception_type: "route_error",
+        status: error.status,
+        statusText: error.statusText,
+      });
+    } else if (!isRouteErrorResponse(error)) {
+      posthog?.captureException(error);
+    }
   }
 
   return (
